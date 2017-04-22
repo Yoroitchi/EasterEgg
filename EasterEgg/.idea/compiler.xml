@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Repo GLPOO" />
+        <module name="EasterEgg" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Repo GLPOO" target="1.5" />
+      <module name="EasterEgg" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
