@@ -6,9 +6,9 @@ package easteregg;
 public class Kid extends Element{
 
     char startDirection;
-    String sequence;
-    public Egg[] sac = null;
-    String name;
+    String sequence = null;
+    public int eggBag = 0;
+    String name = null;
 
     public Kid() {
     }
@@ -37,12 +37,12 @@ public class Kid extends Element{
         this.sequence = sequence;
     }
 
-    public Egg[] getSac() {
-        return sac;
+    public int getSac() {
+        return eggBag;
     }
 
-    public void setSac(Egg[] sac) {
-        this.sac = sac;
+    public void setSac(int eggBag) {
+        this.eggBag = eggBag;
     }
 
     public String getName() {

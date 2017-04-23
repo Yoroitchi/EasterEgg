@@ -2,18 +2,16 @@ package easteregg;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Selim on 23/04/2017.
  */
 public class KidDao {
 
-    public ArrayList<Kid> findAllKids() {
-
-
+    public List<Kid> findAllKids() {
 
         final ArrayList<Kid> kids = new ArrayList<Kid>();
         Kid kid = new Kid();
