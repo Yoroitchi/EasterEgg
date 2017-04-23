@@ -9,9 +9,8 @@ public class GameManager {
         System.out.println("Hello World");
         Garden garden = new Garden(4, 6);
         System.out.println(" "+garden.sizeX +" "+garden.sizeY);
-        garden.addElements();
         garden.printTable();
-
-
+        KidDao kidDao = new KidDao();
+        kidDao.findAllKids();
     }
 }
