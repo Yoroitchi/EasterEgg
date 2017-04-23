@@ -4,26 +4,25 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Selim on 23/04/2017.
  */
-public class KidDao {
+public class RockDao {
 
-    public ArrayList<Kid> findAllKids() {
+    public ArrayList<Rock> findAllRocks() {
 
-        final ArrayList<Kid> kids = new ArrayList<Kid>();
+        final ArrayList<Rock> rocks = new ArrayList<Rock>();
 
         try{
-            InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/kids.txt"));
+            InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/garden.txt"));
             BufferedReader br = new BufferedReader(fr);
             String ligne;
             while ((ligne=br.readLine())!=null){
-                if(ligne.startsWith("E")) {
+                if(ligne.startsWith("R")) {
                     System.out.println(ligne);
-                    Kid kid = transformLigneToKid(ligne);
-                    kids.add(kid);
+                    Rock rock = transformLigneToRock(ligne);
+                    rocks.add(rock);
                 }
             }
             br.close();
@@ -33,15 +32,15 @@ public class KidDao {
             System.out.println(e.toString());
         }
 
-        return kids;
+        return rocks;
     }
 
-    private Kid transformLigneToKid(final String ligne) throws Exception {
+    private Rock transformLigneToRock(final String ligne) throws Exception {
 
         String[] values = ligne.split(" ");
         String[] positions = values[1].split("-");
-        Kid kid = new Kid(new Integer(positions[0]), new Integer(positions[1]), values[2].charAt(0), values[3], values[4]);
+        Rock rock = new Rock(new Integer(positions[0]), new Integer(positions[1]));
 
-        return kid;
+        return rock;
     }
 }
