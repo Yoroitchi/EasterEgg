@@ -45,7 +45,7 @@ public class Garden {
         this.table = garden;
     }
 
-    /*public void addEgg (Egg egg){
+    public void addEgg (EggStack egg){
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 if(egg.posX == i && egg.posY == j){
@@ -73,12 +73,12 @@ public class Garden {
                 }
             }
         }
-    }*/
+    }
 
     public void printTable(){
         for(int i = 0; i < this.sizeX; i++){
             for(int j = 0; j < this.sizeY; j++) {
-                if(this.table[i][j] instanceof Egg){
+                if(this.table[i][j] instanceof EggStack){
 
                     System.out.print(" Egg ");
 
@@ -88,7 +88,7 @@ public class Garden {
 
                 } else if (this.table[i][j] instanceof Rock){
 
-                    System.out.print("Rock");
+                    System.out.print("Rock ");
                 } else {
 
                     System.out.print("Grass");
