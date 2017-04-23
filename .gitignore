@@ -1,0 +1,6 @@
+#gitignore file by noddin
+
+#Defining ignored file pattern
+*.iml
+.idea/
+target/
