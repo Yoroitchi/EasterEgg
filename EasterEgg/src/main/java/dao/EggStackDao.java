@@ -1,4 +1,6 @@
-package easteregg;
+package dao;
+
+import object.EggStack;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -17,30 +19,26 @@ public class EggStackDao {
         try{
             InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/garden.txt"));
             BufferedReader br = new BufferedReader(fr);
-            String ligne;
-            while ((ligne=br.readLine())!=null){
-                if(ligne.startsWith("C")) {
-                    System.out.println(ligne);
-                    EggStack eggStack = transformLigneToEggStack(ligne);
-                    eggStacks.add(eggStack);
+            String line;
+            while ((line=br.readLine())!=null){
+                if(line.startsWith("C")) {
+                    eggStacks.add(transformLineToEggStack(line));
                 }
             }
             br.close();
             fr.close();
-        }
-        catch (Exception e){
+        }catch (Exception e){
             System.out.println(e.toString());
         }
 
         return eggStacks;
     }
 
-    private EggStack transformLigneToEggStack(final String ligne) throws Exception {
+    private EggStack transformLineToEggStack(final String line) throws Exception {
 
-        String[] values = ligne.split(" ");
+        String[] values = line.split(" ");
         String[] positions = values[1].split("-");
-        EggStack eggStack = new EggStack(new Integer(positions[0]), new Integer(positions[1]), new Integer(values[2]));
 
-        return eggStack;
+        return new EggStack(new Integer(positions[0]), new Integer(positions[1]), new Integer(values[2]));
     }
 }

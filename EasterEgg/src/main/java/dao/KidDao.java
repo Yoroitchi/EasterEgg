@@ -1,10 +1,11 @@
-package easteregg;
+package dao;
+
+import object.Kid;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Selim on 23/04/2017.
@@ -18,30 +19,26 @@ public class KidDao {
         try{
             InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/kids.txt"));
             BufferedReader br = new BufferedReader(fr);
-            String ligne;
-            while ((ligne=br.readLine())!=null){
-                if(ligne.startsWith("E")) {
-                    System.out.println(ligne);
-                    Kid kid = transformLigneToKid(ligne);
-                    kids.add(kid);
+            String line;
+            while ((line=br.readLine())!=null){
+                if(line.startsWith("E")) {
+                    kids.add(transformLineToKid(line));
                 }
             }
             br.close();
             fr.close();
-        }
-        catch (Exception e){
+        }catch (Exception e){
             System.out.println(e.toString());
         }
 
         return kids;
     }
 
-    private Kid transformLigneToKid(final String ligne) throws Exception {
+    private Kid transformLineToKid(final String line) throws Exception {
 
-        String[] values = ligne.split(" ");
+        String[] values = line.split(" ");
         String[] positions = values[1].split("-");
-        Kid kid = new Kid(new Integer(positions[0]), new Integer(positions[1]), values[2].charAt(0), values[3], values[4]);
 
-        return kid;
+        return new Kid(new Integer(positions[0]), new Integer(positions[1]), values[2].charAt(0), values[3], values[4]);
     }
 }

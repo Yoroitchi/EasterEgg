@@ -1,32 +1,29 @@
-package easteregg;
+package object;
 
 /**
  * Created by Selim on 22/04/2017.
  */
-public class Kid extends Element{
+public class Kid extends Element {
 
-    char startDirection;
-    String sequence = null;
+    public char direction;
+    public String sequence = null;
     public int eggBag = 0;
-    String name = null;
-
-    public Kid() {
-    }
+    private String name = null;
 
     public Kid(int posX, int posY, char startDirection, String sequence, String name) {
         this.posX = posX;
         this.posY = posY;
-        this.startDirection = startDirection;
+        this.direction = startDirection;
         this.sequence = sequence;
         this.name = name;
     }
 
-    public char getStartDirection() {
-        return startDirection;
+    public char getDirection() {
+        return direction;
     }
 
-    public void setStartDirection(char startDirection) {
-        this.startDirection = startDirection;
+    public void setDirection(char startDirection) {
+        this.direction = startDirection;
     }
 
     public String getSequence() {
@@ -56,7 +53,7 @@ public class Kid extends Element{
     public void printInfo(){
         System.out.print("X = " + this.posX + ", ");
         System.out.print("Y = " + this.posY + ", ");
-        System.out.print("Direction de Départ = " + this.startDirection + ", ");
+        System.out.print("Direction de Départ = " + this.direction + ", ");
         System.out.print("Séquence = " + this.sequence + ", ");
         System.out.println("Nom = " + this.name + ", ");
     }

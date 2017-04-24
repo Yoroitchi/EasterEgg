@@ -1,4 +1,4 @@
-package easteregg;
+package object;
 
 /**
  * Created by Selim on 22/04/2017.

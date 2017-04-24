@@ -1,4 +1,6 @@
-package easteregg;
+package dao;
+
+import object.Rock;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -17,30 +19,26 @@ public class RockDao {
         try{
             InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/garden.txt"));
             BufferedReader br = new BufferedReader(fr);
-            String ligne;
-            while ((ligne=br.readLine())!=null){
-                if(ligne.startsWith("R")) {
-                    System.out.println(ligne);
-                    Rock rock = transformLigneToRock(ligne);
-                    rocks.add(rock);
+            String line;
+            while ((line=br.readLine())!=null){
+                if(line.startsWith("R")) {
+                    rocks.add(transformLineToRock(line));
                 }
             }
             br.close();
             fr.close();
-        }
-        catch (Exception e){
+        }catch (Exception e){
             System.out.println(e.toString());
         }
 
         return rocks;
     }
 
-    private Rock transformLigneToRock(final String ligne) throws Exception {
+    private Rock transformLineToRock(final String line) throws Exception {
 
-        String[] values = ligne.split(" ");
+        String[] values = line.split(" ");
         String[] positions = values[1].split("-");
-        Rock rock = new Rock(new Integer(positions[0]), new Integer(positions[1]));
 
-        return rock;
+        return new Rock(new Integer(positions[0]), new Integer(positions[1]));
     }
 }
