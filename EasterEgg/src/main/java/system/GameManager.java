@@ -5,6 +5,7 @@ import dao.GardenDao;
 import dao.KidDao;
 import dao.RockDao;
 import object.*;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,6 +18,10 @@ import static java.lang.System.exit;
  */
 public class GameManager {
 
+    private static final Logger LOGGER = Logger.getLogger(GameManager.class);
+
+    private static final long delayTimeInSec = 3;
+
     private static Garden garden = new GardenDao().findGarden();
 
     private static ArrayList<EggStack> eggStacks = new EggStackDao().findAllEggs();
@@ -24,36 +29,70 @@ public class GameManager {
     private static ArrayList<Rock> rocks = new RockDao().findAllRocks();
 
     public void start(){
+
+        LOGGER.debug("start : début");
+
+        LOGGER.debug("start : premier chargement du jardin");
         loadGarden();
-        while(!isKidWithSequence()) {
-            delay(3);
+
+        LOGGER.debug("start : execution des tours");
+        while(isKidWithSequence()) {
+
+            delay();
+
+            LOGGER.debug("start : déplacement de chaques enfants");
             for (Kid kid : kids) {
+
+                LOGGER.debug("start : déplacement de "+ kid.getName());
                 moveKid(kid);
             }
+
+            LOGGER.debug("start : nettoyage du Jardin");
             garden.setTable(new Element[garden.getSizeX()][garden.getSizeY()]);
+
+            LOGGER.debug("start : rechargement du Jardin");
             loadGarden();
         }
+
         System.out.println("End of Game");
+        LOGGER.debug("start : fin");
     }
 
     private void loadGarden(){
 
+        LOGGER.debug("loadGarden : début");
+
+        LOGGER.debug("loadGarden : ajout des oeufs au jardin");
         for (EggStack eggStack : eggStacks) {
+
+            LOGGER.debug("loadGarden : "+ eggStack +" oeufs ont été placer dans le jardin");
             garden.addEgg(eggStack);
         }
 
+        LOGGER.debug("loadGarden : ajout des enfants au jardin");
         for(Kid kid : kids){
+
+            LOGGER.debug("loadGarden : "+ kid.getName() +" est entré dans le jardin");
             garden.addKid(kid);
         }
 
+        LOGGER.debug("loadGarden : ajout des rochers au jardin");
         for(Rock rock : rocks){
+
+            LOGGER.debug("loadGarden : un rocher est présent dans le jardin");
             garden.addRock(rock);
         }
 
+        LOGGER.debug("loadGarden : affichage");
         garden.printTable();
+
+        LOGGER.debug("loadGarden : fin");
     }
 
     private void moveKid(Kid kid) {
+
+        LOGGER.debug("moveKid : début");
+
         if (anEggIsGetBy(kid)){
             System.out.println("An Egg was find by " + kid.getName());
         }else if(kid.sequence.startsWith("A")){
@@ -105,15 +144,15 @@ public class GameManager {
             }
             kid.sequence = kid.sequence.substring(1);
         }
-        System.out.println(kid.getSequence());
-        System.out.println(kid.getDirection());
+
+        LOGGER.debug("moveKid : fin");
     }
 
     private boolean isThereAObstacleAt(int posX, int posY){
         try {
             return (garden.table[posX][posY] instanceof Rock || garden.table[posX][posY] instanceof Kid);
         }catch (ArrayIndexOutOfBoundsException e){
-            //System.out.println("\n" + "A Kid try to move out of garden\nPlease check resources files");
+            LOGGER.debug("isThereAObstacleAt : un enfant essaye de sortir du jardin");
             return true;
         }
     }
@@ -124,6 +163,7 @@ public class GameManager {
             if(eggStack.posX == kid.posX && eggStack.posY == kid.posY && eggStack.getEggsNb() > 0){
                 kid.eggBag += 1;
                 eggStack.eggsNb -=1;
+                LOGGER.debug("anEggIsGetBy : ajout d'un oeuf dans le panier de "+ kid.getName());
                 return true;
             }
         }
@@ -133,13 +173,16 @@ public class GameManager {
     private boolean isKidWithSequence(){
 
         for (Kid kid : kids) {
-            if (kid.getSequence().equals("")) return true;
+            if (kid.getSequence().equals("")) return false;
         }
-        return false;
+
+        LOGGER.debug("isKidWithSequence : les enfants ont terminé leur scéquences");
+        return true;
     }
 
-    private void delay (long delayTimeInSec){
+    private void delay(){
         try {
+            LOGGER.debug("delay : délais de "+delayTimeInSec+" secondes");
             TimeUnit.SECONDS.sleep(delayTimeInSec);
         } catch (InterruptedException e) {
             e.printStackTrace();
