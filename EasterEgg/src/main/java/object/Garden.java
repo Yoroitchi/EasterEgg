@@ -4,6 +4,7 @@ package object;
  * Created by Selim on 22/04/2017.
  */
 public class Garden {
+    //This object is our Board Game
     int sizeX;
     int sizeY;
     public Element[][] table;
