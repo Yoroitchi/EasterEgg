@@ -4,7 +4,7 @@ package object;
  * Created by Selim on 22/04/2017.
  */
 public class Kid extends Element {
-
+    //This object is player in the game
     public char direction;
     public String sequence = null;
     public int eggBag = 0;
@@ -48,13 +48,5 @@ public class Kid extends Element {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void printInfo(){
-        System.out.print("X = " + this.posX + ", ");
-        System.out.print("Y = " + this.posY + ", ");
-        System.out.print("Direction de Départ = " + this.direction + ", ");
-        System.out.print("Séquence = " + this.sequence + ", ");
-        System.out.println("Nom = " + this.name + ", ");
     }
 }
