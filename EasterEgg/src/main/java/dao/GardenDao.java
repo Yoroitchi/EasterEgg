@@ -4,6 +4,7 @@ import object.Garden;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
@@ -16,7 +17,7 @@ public class GardenDao {
     private static final Logger LOGGER = Logger.getLogger(GardenDao.class);
 
     //Method to find garden parameters in "src/main/resources/garden.txt"
-    public Garden findGarden() {
+    public Garden findGarden(File file) {
 
         LOGGER.debug("findGarden : debut");
 
@@ -24,7 +25,7 @@ public class GardenDao {
         Garden garden = null;
 
         try{
-            InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/garden.txt"));
+            InputStreamReader fr = new InputStreamReader(new FileInputStream(file));
             BufferedReader br = new BufferedReader(fr);
             String line;
 
@@ -34,7 +35,7 @@ public class GardenDao {
                 //If a garden is find
                 if (line.startsWith("J")) {
 
-                    LOGGER.debug("findGarden : des paramètres de jardin on été trouvé --> "+ line);
+                    LOGGER.debug("findGarden : des paramètres de jardin on été trouvé --> " + line);
 
                     //Conversion of text to garden
                     garden = transformLineToGarden(line);

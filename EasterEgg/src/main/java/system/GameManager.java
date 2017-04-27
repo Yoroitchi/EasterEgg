@@ -8,6 +8,7 @@ import display.Frame;
 import object.*;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -21,13 +22,33 @@ public class GameManager {
 
     private static final Logger LOGGER = Logger.getLogger(GameManager.class);
 
+    //Resources garden path definition
+    private final static String RESOURCES_PATH = "src/main/resources/";
+    private final static String GARDEN_FILE_NAME = "garden.txt";
+    private static File gardenFile = new File(RESOURCES_PATH + GARDEN_FILE_NAME);
+
+    //Resources kids path definition
+    private final static String KIDS_FILE_NAME = "kids.txt";
+    private static File kidsFile = new File(RESOURCES_PATH + KIDS_FILE_NAME);
+
+
     private static final long delayTimeInSec = 3;
 
-    static Garden garden = new GardenDao().findGarden();
+    private static Garden garden = new GardenDao().findGarden(gardenFile);
 
-    private static ArrayList<EggStack> eggStacks = new EggStackDao().findAllEggs();
-    private static ArrayList<Kid> kids = new KidDao().findAllKids();
-    private static ArrayList<Rock> rocks = new RockDao().findAllRocks();
+    private static ArrayList<EggStack> eggStacks = new EggStackDao().findAllEggs(gardenFile);
+    private static ArrayList<Kid> kids = new KidDao().findAllKids(kidsFile);
+    private static ArrayList<Rock> rocks = new RockDao().findAllRocks(gardenFile);
+
+    public GameManager(File gardenFile) {
+        this.gardenFile = gardenFile;
+
+    }
+
+    public GameManager(File gardenFile,File kidsFile){
+        this.gardenFile = gardenFile;
+        this.kidsFile = kidsFile;
+    }
 
     public void start(){
 
@@ -51,9 +72,11 @@ public class GameManager {
             }
 
             LOGGER.debug("start : nettoyage du Jardin");
+            //Table set a 0
             garden.setTable(new Element[garden.getSizeX()][garden.getSizeY()]);
 
             LOGGER.debug("start : rechargement du Jardin");
+            //Table load from ArrayLists
             loadGarden();
         }
 
@@ -68,7 +91,7 @@ public class GameManager {
         LOGGER.debug("loadGarden : ajout des oeufs au jardin");
         for (EggStack eggStack : eggStacks) {
 
-            LOGGER.debug("loadGarden : "+ eggStack +" oeufs ont été placer dans le jardin");
+            LOGGER.debug("loadGarden : "+ eggStack.eggsNb +" oeufs ont été placer dans le jardin");
             garden.addEgg(eggStack);
         }
 
@@ -92,7 +115,7 @@ public class GameManager {
         LOGGER.debug("loadGarden : fin");
     }
 
-    private void moveKid(Kid kid) {
+    protected void moveKid(Kid kid) {
 
         LOGGER.debug("moveKid : début");
 
