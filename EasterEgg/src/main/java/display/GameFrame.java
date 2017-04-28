@@ -4,16 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,15 +22,16 @@ import object.Garden;
 import object.Kid;
 import object.Rock;
 import system.GameManager;
-import system.Launcher;
 
 /**
- * Created by Selim on 25/04/2017.
+ * Created by Raphael on 27/04/2017.
  */
 public class GameFrame extends JFrame {
+
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 8288811893116150593L;
 
 	private static final Logger LOGGER = Logger.getLogger(GameFrame.class);
 
@@ -47,16 +43,18 @@ public class GameFrame extends JFrame {
 	private JPanel scorePanel;
 	private JTable jTable;
 
+	// Constructor of GameFrame
 	public GameFrame() {
 		super();
 
-		LOGGER.debug("Frame : création de la frame");
+		LOGGER.debug("Frame : creation de la frame");
 
 		this.setTitle("GLPOO Project - Easter Egg");
 		this.setSize(600, 500);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		// Title Panel
 		JPanel titlePanel = new JPanel();
 		titlePanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		JLabel title = new JLabel("Easter Egg");
@@ -64,14 +62,14 @@ public class GameFrame extends JFrame {
 		titlePanel.add(title);
 		this.add(titlePanel, BorderLayout.NORTH);
 
-		LOGGER.debug("Frame : Création du GameManager");
+		LOGGER.debug("Frame : creation du GameManager");
 		gm = new GameManager(this);
 
-		LOGGER.debug("Frame : Recuperation de garden & kids");
+		LOGGER.debug("Frame : recuperation de garden & kids");
 		garden = gm.getGarden();
 		kids = gm.getKids();
 
-		LOGGER.debug("Frame : Appel de gm.start()");
+		LOGGER.debug("Frame : appel de gm.start()");
 		gm.start();
 
 		this.setVisible(true);
@@ -82,10 +80,7 @@ public class GameFrame extends JFrame {
 
 	}
 
-	public void roundEngine() {
-		gm.gameEngine();
-	}
-
+	// Create & refresh the jTable
 	public void updateJTable() {
 		this.jTable = new JTable(this.garden.getSizeX(), this.garden.getSizeY());
 		jTable.setDefaultRenderer(Object.class, new ImageCellRender());
@@ -99,21 +94,21 @@ public class GameFrame extends JFrame {
 
 		LOGGER.debug("updateJTable : actualisation de la JTable");
 
-		for (int i = 0; i < this.garden.getSizeX(); i++) {
+		for (int x = 0; x < this.garden.getSizeX(); x++) {
 			for (int y = 0; y < this.garden.getSizeY(); y++) {
-				if (element[i][y] instanceof EggStack) {
-					EggStack egg = (EggStack) element[i][y];
-					this.jTable.setValueAt("egg_" + egg.getEggsNb(), i, y);
+				if (element[x][y] instanceof EggStack) {
+					EggStack egg = (EggStack) element[x][y];
+					this.jTable.setValueAt("egg_" + egg.getEggsNb(), x, y);
 					continue;
-				} else if (element[i][y] instanceof Rock) {
-					this.jTable.setValueAt("rock", i, y);
+				} else if (element[x][y] instanceof Rock) {
+					this.jTable.setValueAt("rock", x, y);
 					continue;
-				} else if (element[i][y] instanceof Kid) {
-					Kid kid = (Kid) element[i][y];
-					this.jTable.setValueAt("kid_" + kid.sexe + "_" + kid.direction, i, y);
+				} else if (element[x][y] instanceof Kid) {
+					Kid kid = (Kid) element[x][y];
+					this.jTable.setValueAt("kid_" + kid.sexe + "_" + kid.direction, x, y);
 					continue;
 				} else {
-					this.jTable.setValueAt("grass", i, y);
+					this.jTable.setValueAt("grass", x, y);
 				}
 			}
 		}
@@ -121,6 +116,7 @@ public class GameFrame extends JFrame {
 		this.add(jTablePanel, BorderLayout.CENTER);
 	}
 
+	// Refresh the score panel
 	public void updateScorePanel() {
 		scorePanel = new JPanel();
 		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.PAGE_AXIS));
@@ -128,13 +124,13 @@ public class GameFrame extends JFrame {
 		scorePanel.setPreferredSize(new Dimension(150, 480));
 		scorePanel.setAlignmentX(CENTER_ALIGNMENT);
 		scorePanel.setAlignmentY(CENTER_ALIGNMENT);
-		scorePanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		scorePanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
 		LOGGER.debug("updateScorePanel : actualisation du scorePannel");
 
 		for (Kid kid : kids) {
 			JLabel kidName = new JLabel(kid.getName());
-			kidName.setFont(new Font("Bold", Font.BOLD, 20));
+			kidName.setFont(new Font("Bold", Font.BOLD, 19));
 			kidName.setAlignmentX(CENTER_ALIGNMENT);
 			scorePanel.add(kidName);
 
@@ -147,6 +143,7 @@ public class GameFrame extends JFrame {
 		this.add(scorePanel, BorderLayout.EAST);
 	}
 
+	// Refresh the jFrame by calling updateJTable() & updateScorePanel();
 	public void updateJFrame() {
 
 		LOGGER.debug("updateJFrame : actualisation de Frame");
@@ -160,6 +157,7 @@ public class GameFrame extends JFrame {
 		LOGGER.debug("updateJFrame : fin de l'actualisation de la Frame");
 	}
 
+	// Define the winner and set the winnerPanel
 	public void endOfGame() {
 		int winner = 0;
 		int temp = 0;
@@ -186,6 +184,7 @@ public class GameFrame extends JFrame {
 		JLabel winnerLabel = new JLabel("Winner!");
 		winnerLabel.setFont(new Font("Bold", Font.BOLD, 25));
 		winnerLabel.setAlignmentX(CENTER_ALIGNMENT);
+
 		winnerPanel.add(winnerLabel);
 		winnerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
@@ -200,11 +199,6 @@ public class GameFrame extends JFrame {
 		winnerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
 		scorePanel.add(winnerPanel);
-		scorePanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-		JButton resetButton = new JButton("Reset");
-		resetButton.setAlignmentX(CENTER_ALIGNMENT);
-		scorePanel.add(resetButton);
 
 		this.add(scorePanel, BorderLayout.EAST);
 		this.pack();

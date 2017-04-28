@@ -6,11 +6,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import org.apache.log4j.Logger;
-
 public class ImageCellRender extends DefaultTableCellRenderer {
 
-	private static final Logger LOGGER = Logger.getLogger(ImageCellRender.class);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8130766682251931327L;
 
 	private static final String PATH = "src/main/resources/images/";
 
