@@ -4,6 +4,7 @@ import object.Kid;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class KidDao {
     private static final Logger LOGGER = Logger.getLogger(KidDao.class);
 
     //Method to find kids parameters in "src/main/resources/kids.txt"
-    public ArrayList<Kid> findAllKids() {
+    public ArrayList<Kid> findAllKids(File file) {
 
         LOGGER.debug("findAllKids : debut");
 
@@ -25,7 +26,7 @@ public class KidDao {
         final ArrayList<Kid> kids = new ArrayList<Kid>();
 
         try{
-            InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/kids.txt"));
+            InputStreamReader fr = new InputStreamReader(new FileInputStream(file));
             BufferedReader br = new BufferedReader(fr);
             String line;
 
@@ -63,6 +64,6 @@ public class KidDao {
         String[] values = line.split(" ");
         String[] positions = values[1].split("-");
 
-        return new Kid(new Integer(positions[0]), new Integer(positions[1]), values[2].charAt(0), values[3], values[4]);
+        return new Kid(new Integer(positions[0]), new Integer(positions[1]), values[2].charAt(0), values[3], values[4], values[5].charAt(0));
     }
 }

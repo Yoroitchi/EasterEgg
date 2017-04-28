@@ -1,7 +1,5 @@
 # enfant(E) position initiale(colonne-ligne) orientation initiale(N|E|S|W) deplacements(A|G|D) nom
 
-E 0-0 E AAAAA Yves-Gontrand M
-
-E 5-1 E AAADA Berangere F
-
-E 3-1 N AADA Anatole M
+E 0-0 E A Julien
+E 0-2 E A Jules
+E 1-1 O A Théo
