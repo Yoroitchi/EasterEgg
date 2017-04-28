@@ -4,6 +4,7 @@ import object.EggStack;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class EggStackDao {
     private static final Logger LOGGER = Logger.getLogger(EggStackDao.class);
 
     //Method to find egg stacks parameters in "src/main/resources/garden.txt"
-    public ArrayList<EggStack> findAllEggs() {
+    public ArrayList<EggStack> findAllEggs(File file) {
 
         LOGGER.debug("findAllEggs : debut");
 
@@ -25,7 +26,7 @@ public class EggStackDao {
         final ArrayList<EggStack> eggStacks = new ArrayList<EggStack>();
 
         try{
-            InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/garden.txt"));
+            InputStreamReader fr = new InputStreamReader(new FileInputStream(file));
             BufferedReader br = new BufferedReader(fr);
             String line;
 

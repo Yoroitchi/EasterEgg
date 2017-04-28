@@ -19,15 +19,21 @@ import static junit.framework.TestCase.fail;
 
 /**
  * Created by Selim on 25/04/2017.
+ * filled by Erwan.
  */
 public class EggStackDaoTest {
     private static final Logger LOGGER = Logger.getLogger(EggStackDaoTest.class);
 
+    private final static String RESOURCES_PATH = "src/test/resources/";
+    private final static String EGGS_FILE_NAME = "garden.txt";
 
-    private ArrayList<EggStack> EggStackList = new EggStackDao().findAllEggs();
+    private File file = new File(RESOURCES_PATH + EGGS_FILE_NAME);
+
+    private ArrayList<EggStack> EggStackList = new EggStackDao().findAllEggs(file);
 
     @Before
     public void setUp() throws Exception {
+        BasicConfigurator.configure();
         LOGGER.debug("setUp start");
 
         if(EggStackList == null) {fail("EggStackList is empty and shouldn't be.");}
@@ -35,7 +41,7 @@ public class EggStackDaoTest {
         LOGGER.debug("setUp end");
     }
 
-    @Before
+    @Test
     public void isNegativeStack() {
         LOGGER.debug("isNegativeStack start");
 
@@ -50,11 +56,12 @@ public class EggStackDaoTest {
     public void findAllEggs() throws Exception {
         LOGGER.debug("findAllEggs start");
 
-        int totalEggsExpected = 0;
+        int totalEggsExpected = 3;
+        int totalEggs = 0;
         for (EggStack eggstack: EggStackList) {
-            totalEggsExpected += eggstack.eggsNb;
+            totalEggs += eggstack.getEggsNb();
         }
-        if (totalEggsExpected < 0) fail("Total number of eggs less than 0");
+        if (totalEggs != totalEggsExpected) fail("Total number of eggs less than 0");
 
         LOGGER.debug("findAllEggs end");
     }

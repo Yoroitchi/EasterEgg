@@ -1,3 +1,5 @@
 # enfant(E) position initiale(colonne-ligne) orientation initiale(N|E|S|W) deplacements(A|G|D) nom
 
 E 0-0 E A Julien
+E 0-2 E A Jules
+E 1-1 O A Théo
