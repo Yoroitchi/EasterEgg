@@ -64,6 +64,6 @@ public class KidDao {
         String[] values = line.split(" ");
         String[] positions = values[1].split("-");
 
-        return new Kid(new Integer(positions[0]), new Integer(positions[1]), values[2].charAt(0), values[3], values[4]);
+        return new Kid(new Integer(positions[0]), new Integer(positions[1]), values[2].charAt(0), values[3], values[4], values[5].charAt(0));
     }
 }

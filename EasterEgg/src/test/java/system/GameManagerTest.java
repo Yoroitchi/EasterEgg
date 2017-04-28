@@ -34,7 +34,7 @@ public class GameManagerTest {
     @Test
     public void MoveKid() throws Exception {
         LOGGER.debug("MoveKid start");
-        Kid kid = new Kid(1,1,'E',"AD","EnfantCrashTest");
+        Kid kid = new Kid(1,1,'E',"AD","EnfantCrashTest", 'M');
 
         gameManager.moveKid(kid);
         if(kid.posY != 2) {fail("Didn't move well");}
