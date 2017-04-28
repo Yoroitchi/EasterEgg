@@ -46,12 +46,13 @@ public class GameManager {
 	public GameManager(GameFrame gf) {
 		this.gf = gf;
 	}
-	
-	//For test
-	public GameManager(File gardenFile){
+
+	// For test on GameManager
+	public GameManager(File gardenFile) {
 		this.gardenFile = gardenFile;
 	}
 
+	//Initialize the game
 	public void start() {
 
 		LOGGER.debug("start : debut");
@@ -74,7 +75,6 @@ public class GameManager {
 
 			LOGGER.debug("gameEngine : deplacement de chaque enfants");
 			for (Kid kid : kids) {
-
 				LOGGER.debug("gameEngine : deplacement de " + kid.getName());
 				moveKid(kid);
 			}
@@ -93,14 +93,13 @@ public class GameManager {
 
 		endOfGame();
 	}
-	
+
 	public void endOfGame() {
 		delay();
 		LOGGER.debug("endOfGame : appel de Frame.endOfGame()");
 		gf.endOfGame();
 
 	}
-
 
 	private void loadGarden() {
 
@@ -237,7 +236,7 @@ public class GameManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Garden getGarden() {
 		return garden;
 	}
