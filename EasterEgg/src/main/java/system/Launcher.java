@@ -13,8 +13,6 @@ public class Launcher {
 
 		BasicConfigurator.configure();
 
-		// MainFrame mf = new MainFrame();
-		// new Temp();
 		new GameFrame();
 	}
 }
