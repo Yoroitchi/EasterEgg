@@ -4,6 +4,7 @@ import object.Rock;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class RockDao {
     private static final Logger LOGGER = Logger.getLogger(RockDao.class);
 
     //Method to find rocks parameters in "src/main/resources/garden.txt"
-    public ArrayList<Rock> findAllRocks() {
+    public ArrayList<Rock> findAllRocks(File file) {
 
         LOGGER.debug("findAllRocks : debut");
 
@@ -25,7 +26,7 @@ public class RockDao {
         final ArrayList<Rock> rocks = new ArrayList<Rock>();
 
         try{
-            InputStreamReader fr = new InputStreamReader(new FileInputStream("src/main/resources/garden.txt"));
+            InputStreamReader fr = new InputStreamReader(new FileInputStream(file));
             BufferedReader br = new BufferedReader(fr);
             String line;
 
